@@ -6,11 +6,20 @@ class Parse extends Model{
 
 	public static $unguarded = true;
 
+
+	public static function get($id){
+
+		$parsed = Parse::find($id);
+		return $parsed;
+
+	}
+
 	public static function add($data){
 
 		try {
 
 			$parse = Parse::create([
+				'id' => $data['id'],
 				'title' => $data['title'],
 				'company' => $data['company'],
 				'salary' => $data['salary'],

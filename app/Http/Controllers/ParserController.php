@@ -62,6 +62,8 @@ class ParserController extends Controller {
 
 
 			    	$job_page = new \Htmldom($request->getResponseText());
+			    	preg_match('/(\d+)/s', $request->getUrl(), $url_id);
+			    	$item['id'] = $url_id[1];
 			    	if (null !== $job_page->find('h1.title')){
 						$item['title'] = $job_page ->find('h1.title', 0)->plaintext;
 					}else{
@@ -109,7 +111,12 @@ class ParserController extends Controller {
 					}
 					$results[] = $item;
 
-					Parse::add($item); 
+					
+					if (!Parse::get($item['id'])){
+
+						Parse::add($item); 
+
+					}
 			     
 			    
 			        $rollingCurl->clearCompleted();
@@ -131,13 +138,13 @@ class ParserController extends Controller {
 		echo "...done in " . (microtime(true) - $start) . PHP_EOL . "</br>";
 
 
-		return $results;
+		//return $results;
 
 
 		//echo "All results: " . PHP_EOL;
 		//print_r ($elements);
 		//print_r ($results);
-		//return $results;
+		return $results;
 		//return $elements;
 
 

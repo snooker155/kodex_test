@@ -13,16 +13,16 @@ class CreateParsesTable extends Migration {
 	public function up()
 	{
 		Schema::create('parses', function($table){
-			$table -> increments('id');
+			$table -> integer('id')->unique();
 			$table -> string('title', 150);
 			$table -> string('company', 150);
 			$table -> string('salary', 150);
 			$table -> string('city', 150);
 			$table -> string('experience', 150);
 			$table -> text('description');
-			$table -> string('type_of_job', 150);
-			$table -> string('address', 150);
-			$table -> string('date_of_publicity', 150);
+			$table -> string('type_of_job', 150)->nullable();
+			$table -> string('address', 500)->nullable();
+			$table -> string('date_of_publicity', 150)->nullable();
 			$table -> timestamps();
 		});
 	}
